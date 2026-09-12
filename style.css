@@ -90,6 +90,48 @@ body {
 }
 .recipe-card .delete-btn:hover { opacity: 1; }
 
+/* ===== Grind Guide Button ===== */
+.grind-guide-btn {
+  display: block; width: 100%; padding: 12px;
+  background: var(--surface); border: 1px solid var(--border-active);
+  color: var(--primary); border-radius: var(--radius-sm);
+  font-size: 0.9rem; font-weight: 500; font-family: inherit;
+  cursor: pointer; transition: all 0.2s; margin-bottom: 20px;
+}
+.grind-guide-btn:hover { background: var(--surface-hover); color: var(--accent); }
+
+/* ===== Grind Guide ===== */
+.grind-guide-intro {
+  color: var(--text-secondary); font-size: 0.88rem; line-height: 1.6;
+  margin-bottom: 20px; padding: 14px 16px;
+  background: var(--surface); border-radius: var(--radius-sm); border: 1px solid var(--border);
+}
+.grind-guide-intro strong { color: var(--accent); }
+.grind-table { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
+.grind-row {
+  display: grid; grid-template-columns: 1fr 70px 70px; gap: 8px; align-items: center;
+  padding: 12px 14px; background: var(--surface); border-radius: var(--radius-sm);
+  border: 1px solid var(--border); font-size: 0.88rem; transition: all 0.2s;
+}
+.grind-row:hover { background: var(--surface-hover); }
+.grind-row.header { background: transparent; border: none; color: var(--text-dim); font-size: 0.72rem; font-weight: 500; padding: 4px 14px; }
+.grind-row .g-label { font-weight: 700; color: var(--text); }
+.grind-row .g-label .g-kr { display: block; }
+.grind-row .g-label .g-en { display: block; font-size: 0.72rem; color: var(--text-dim); font-weight: 400; }
+.grind-row .g-clicks { font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--accent); text-align: center; }
+.grind-row .g-micron { font-family: 'JetBrains Mono', monospace; color: var(--text-dim); text-align: center; font-size: 0.8rem; }
+.grind-use {
+  margin-top: 20px; padding: 14px 16px;
+  background: var(--surface); border-radius: var(--radius-sm); border: 1px solid var(--border);
+}
+.grind-use h3 { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 10px; }
+.grind-use-list { display: flex; flex-direction: column; gap: 6px; }
+.grind-use-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.85rem; color: var(--text-secondary);
+}
+.grind-use-item .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
 /* ===== FAB ===== */
 .fab {
   position: fixed; bottom: 24px; right: 24px;

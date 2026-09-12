@@ -9,6 +9,7 @@ const defaultRecipes = [
     totalWater: 300,
     waterTemp: '90-93°C',
     grindSize: '중간 굵기',
+    comandanteClicks: '24–28',
     roastLevel: '미디엄',
     totalTime: 210,
     steps: [
@@ -28,6 +29,7 @@ const defaultRecipes = [
     totalWater: 320,
     waterTemp: '92-94°C',
     grindSize: '중간 굵기',
+    comandanteClicks: '24–28',
     roastLevel: '미디엄',
     totalTime: 180,
     steps: [
@@ -47,6 +49,7 @@ const defaultRecipes = [
     totalWater: 300,
     waterTemp: '94-96°C',
     grindSize: '중간 굵기',
+    comandanteClicks: '22–26',
     roastLevel: '미디엄 라이트',
     totalTime: 195,
     steps: [
@@ -67,6 +70,7 @@ const defaultRecipes = [
     totalWater: 300,
     waterTemp: '93-95°C',
     grindSize: '중간 굵기',
+    comandanteClicks: '22–26',
     roastLevel: '라이트',
     totalTime: 195,
     steps: [
@@ -86,6 +90,7 @@ const defaultRecipes = [
     totalWater: 280,
     waterTemp: '85-88°C',
     grindSize: '중간 굵기',
+    comandanteClicks: '26–30',
     roastLevel: '다크',
     totalTime: 180,
     steps: [
@@ -104,7 +109,8 @@ const defaultRecipes = [
     coffeeDose: 20,
     totalWater: 300,
     waterTemp: '96°C',
-    grindSize: '매우 굵게 (코만단테 40~45클릭 / ~1,800μm)',
+    grindSize: '매우 굵게',
+    comandanteClicks: '40–45',
     roastLevel: '라이트',
     totalTime: 180,
     steps: [
@@ -135,6 +141,7 @@ const defaultRecipes = [
     totalWater: 300,
     waterTemp: '90-93°C',
     grindSize: '중간 굵기',
+    comandanteClicks: '24–28',
     roastLevel: '미디엄',
     totalTime: 165,
     steps: [
@@ -273,6 +280,7 @@ function renderRecipeDetail(recipe) {
       <div class="info-item"><span class="label">비율</span><span class="value">1:${ratio}</span></div>
       <div class="info-item"><span class="label">수온</span><span class="value">${recipe.waterTemp}</span></div>
       <div class="info-item"><span class="label">분쇄도</span><span class="value">${recipe.grindSize}</span></div>
+      <div class="info-item"><span class="label">코만단테</span><span class="value">${recipe.comandanteClicks || '—'} 클릭</span></div>
       <div class="info-item"><span class="label">로스트</span><span class="value">${recipe.roastLevel}</span></div>
     </div>
     <div class="dose-control">
@@ -653,9 +661,53 @@ function handleAddRecipe() {
   navigate('list');
 }
 
+// ===== Grind Guide =====
+const grindGuideData = [
+  { kr: '매우 곱게', en: 'Very Fine', clicks: '6–10', micron: '~400μm', color: '#d96650', use: '에스프레소, 모카포트' },
+  { kr: '곱게', en: 'Fine', clicks: '10–14', micron: '~600μm', color: '#e8b87d', use: '에스프레소, 터키커피' },
+  { kr: '중간 곱게', en: 'Medium-Fine', clicks: '14–18', micron: '~800μm', color: '#c8a882', use: '커피필터, 사이폰' },
+  { kr: '중간', en: 'Medium', clicks: '18–22', micron: '~1000μm', color: '#a08565', use: '드립커피 기본, 에어로프레스' },
+  { kr: '중간 굵기', en: 'Medium-Coarse', clicks: '22–28', micron: '~1200μm', color: '#8bbf6a', use: 'V60, 칼리타, 오리가미' },
+  { kr: '굵게', en: 'Coarse', clicks: '28–35', micron: '~1500μm', color: '#6a9fbb', use: '프렌치프레스, 콜드브루' },
+  { kr: '매우 굵게', en: 'Very Coarse', clicks: '35–45', micron: '~1800μm', color: '#7a8dbf', use: '콜드브루, 텐(10) 레시피' },
+];
+
+function renderGrindGuide() {
+  const container = document.getElementById('grind-guide-content');
+  container.innerHTML = `
+    <div class="grind-guide-intro">
+      <strong>Comandante C40</strong> 그라인더의 클릭 수를 기준으로 합니다. 0클릭(완전히 닫힘)에서부터 시계 방향으로 돌린 수를 의미하며, 1클릭당 약 <strong>60μm</strong>입니다. 본 가이드는 <strong>표준 액슬(Standard Axle)</strong> 기준입니다.
+    </div>
+    <div class="grind-table">
+      <div class="grind-row header">
+        <span>분쇄도</span><span>클릭 수</span><span>입자 크기</span>
+      </div>
+      ${grindGuideData.map(g => `
+        <div class="grind-row">
+          <span class="g-label"><span class="g-kr">${g.kr}</span><span class="g-en">${g.en}</span></span>
+          <span class="g-clicks">${g.clicks}</span>
+          <span class="g-micron">${g.micron}</span>
+        </div>
+      `).join('')}
+    </div>
+    <div class="grind-use">
+      <h3>추출 방법별 추천 분쇄도</h3>
+      <div class="grind-use-list">
+        ${grindGuideData.map(g => `
+          <div class="grind-use-item">
+            <span class="dot" style="background:${g.color}"></span>
+            <span><strong>${g.kr}</strong> (${g.clicks} 클릭) — ${g.use}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
 // ===== Init =====
 function init() {
   renderRecipeList();
+  renderGrindGuide();
   document.getElementById('add-recipe-btn').addEventListener('click', () => {
     renderAddForm();
     navigate('add');

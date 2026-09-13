@@ -479,13 +479,14 @@ function updateTimerDisplay() {
     pourLabel.textContent = '✅ 완료!';
     pourAmount.textContent = '맛있는 커피 완성';
     pourStep.textContent = `${formatTime(state.timer.elapsed)} 소요`;
-    pourCumulative.textContent = `누적 ${recipe.totalWater}g · ${formatTime(state.timer.elapsed)}`;
+    pourCumulative.textContent = `누적 ${recipe.totalWater}g`;
   } else if (stepIdx >= 0) {
     const step = steps[stepIdx];
+    const stepElapsed = state.timer.elapsed - step.time;
     pourLabel.textContent = '💧 부으세요';
-    pourAmount.textContent = `${step.pour}g`;
+    pourAmount.innerHTML = `${step.pour}g <span class="pour-step-time">${formatTime(stepElapsed)}</span>`;
     pourStep.textContent = step.label;
-    pourCumulative.textContent = `누적 ${totalPoured}g · ${formatTime(state.timer.elapsed)}`;
+    pourCumulative.textContent = `누적 ${totalPoured}g`;
   } else {
     pourCumulative.textContent = '';
   }

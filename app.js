@@ -402,7 +402,6 @@ function startTimer() {
   btn.textContent = '일시정지';
   btn.classList.add('paused');
 }
-}
 
 function pauseTimer() {
   state.timer.running = false;

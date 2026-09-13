@@ -237,6 +237,8 @@ body {
   display: flex; align-items: baseline; justify-content: center; gap: 12px;
 }
 .pour-step-time { font-size: 1.2rem; color: var(--text-dim); font-weight: 400; }
+.countdown-number { font-size: 3.5rem; font-weight: 700; color: var(--accent); animation: countdownPulse 1s ease infinite; }
+@keyframes countdownPulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.15); opacity: 0.8; } }
 .pour-card .pour-step { font-size: 0.9rem; color: var(--text-secondary); }
 .pour-cumulative { font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 700; color: var(--primary); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
 .pour-card.completed .pour-cumulative { color: var(--success); }

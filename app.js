@@ -169,6 +169,8 @@ const state = {
     interval: null,
     currentStepIndex: -1,
     completed: false,
+    countdown: 0,
+    phase: 'idle', // 'idle' | 'countdown' | 'brewing' | 'completed'
   },
   wakeLock: null,
 };
@@ -335,6 +337,8 @@ function startBrewing() {
   state.timer.elapsed = 0;
   state.timer.currentStepIndex = -1;
   state.timer.completed = false;
+  state.timer.countdown = 0;
+  state.timer.phase = 'idle';
   renderTimer(state.scaledRecipe);
   navigate('timer');
 }
@@ -371,7 +375,7 @@ function renderTimer(recipe) {
 }
 
 function toggleTimer() {
-  if (state.timer.completed) {
+  if (state.timer.phase === 'completed') {
     resetTimer();
     return;
   }
@@ -386,9 +390,18 @@ function startTimer() {
   state.timer.running = true;
   state.timer.interval = setInterval(tick, 1000);
   requestWakeLock();
+
+  // Start countdown if idle (not resuming from pause)
+  if (state.timer.phase === 'idle') {
+    state.timer.phase = 'countdown';
+    state.timer.countdown = 3;
+    updateTimerDisplay();
+  }
+
   const btn = document.getElementById('btn-start');
   btn.textContent = '일시정지';
   btn.classList.add('paused');
+}
 }
 
 function pauseTimer() {
@@ -400,7 +413,7 @@ function pauseTimer() {
   releaseWakeLock();
   const btn = document.getElementById('btn-start');
   if (btn) {
-    btn.textContent = state.timer.completed ? '다시 시작' : '계속';
+    btn.textContent = state.timer.phase === 'completed' ? '다시 시작' : '계속';
     btn.classList.remove('paused');
   }
 }
@@ -410,14 +423,37 @@ function resetTimer() {
   state.timer.elapsed = 0;
   state.timer.currentStepIndex = -1;
   state.timer.completed = false;
+  state.timer.countdown = 0;
+  state.timer.phase = 'idle';
   document.title = 'BrewIt! ☕';
   if (state.scaledRecipe) renderTimer(state.scaledRecipe);
 }
 
 function tick() {
-  state.timer.elapsed++;
   const recipe = state.scaledRecipe;
   const steps = recipe.steps;
+
+  // Countdown phase
+  if (state.timer.phase === 'countdown') {
+    state.timer.countdown--;
+    if (state.timer.countdown <= 0) {
+      state.timer.phase = 'brewing';
+      state.timer.elapsed = 0;
+      state.timer.currentStepIndex = 0;
+      if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+      const pourCard = document.getElementById('pour-card');
+      if (pourCard) {
+        pourCard.classList.remove('pulse');
+        void pourCard.offsetWidth;
+        pourCard.classList.add('pulse');
+      }
+    }
+    updateTimerDisplay();
+    return;
+  }
+
+  // Brewing phase
+  state.timer.elapsed++;
 
   // Find current step
   let currentStep = -1;
@@ -444,6 +480,7 @@ function tick() {
   if (state.timer.elapsed >= recipe.totalTime) {
     state.timer.running = false;
     state.timer.completed = true;
+    state.timer.phase = 'completed';
     clearInterval(state.timer.interval);
     state.timer.interval = null;
     releaseWakeLock();
@@ -457,6 +494,24 @@ function updateTimerDisplay() {
   const recipe = state.scaledRecipe;
   const steps = recipe.steps;
   const stepIdx = state.timer.currentStepIndex;
+
+  // Countdown phase display
+  if (state.timer.phase === 'countdown') {
+    document.getElementById('timer-display').textContent = formatTime(0);
+    document.getElementById('pour-label').textContent = '⏳ 준비하세요';
+    document.getElementById('pour-amount').innerHTML = `<span class="countdown-number">${state.timer.countdown}</span>`;
+    document.getElementById('pour-step-name').textContent = '주전자를 준비해주세요';
+    document.getElementById('pour-cumulative').textContent = '';
+    document.getElementById('water-current').textContent = '0g';
+    document.getElementById('water-percent').textContent = '0%';
+    document.getElementById('progress-fill').style.width = '0%';
+    document.title = `${state.timer.countdown} | BrewIt!`;
+    renderTimerSteps(recipe, -1);
+    const btn = document.getElementById('btn-start');
+    btn.textContent = '일시정지';
+    btn.classList.add('paused');
+    return;
+  }
 
   // Timer
   document.getElementById('timer-display').textContent = formatTime(state.timer.elapsed);
@@ -511,7 +566,7 @@ function updateTimerDisplay() {
 
   // Start button
   const btn = document.getElementById('btn-start');
-  if (state.timer.completed) {
+  if (state.timer.phase === 'completed') {
     btn.textContent = '다시 시작';
     btn.classList.remove('paused');
   } else if (state.timer.running) {

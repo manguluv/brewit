@@ -348,6 +348,7 @@ function renderTimer(recipe) {
       <div class="pour-label" id="pour-label">준비</div>
       <div class="pour-amount" id="pour-amount">시작 버튼을 누르세요</div>
       <div class="pour-step" id="pour-step-name">원두 ${recipe.coffeeDose}g · 물 ${recipe.totalWater}g</div>
+      <div class="pour-cumulative" id="pour-cumulative"></div>
     </div>
     <div class="progress-section">
       <div class="progress-text">
@@ -460,29 +461,36 @@ function updateTimerDisplay() {
   // Timer
   document.getElementById('timer-display').textContent = formatTime(state.timer.elapsed);
 
+  // Calculate cumulative poured amount
+  const totalPoured = stepIdx >= 0
+    ? steps.slice(0, stepIdx + 1).reduce((sum, s) => sum + s.pour, 0)
+    : 0;
+  const displayPoured = state.timer.completed ? recipe.totalWater : totalPoured;
+
   // Pour card
   const pourCard = document.getElementById('pour-card');
   const pourLabel = document.getElementById('pour-label');
   const pourAmount = document.getElementById('pour-amount');
   const pourStep = document.getElementById('pour-step-name');
+  const pourCumulative = document.getElementById('pour-cumulative');
 
   if (state.timer.completed) {
     pourCard.classList.add('completed');
     pourLabel.textContent = '✅ 완료!';
     pourAmount.textContent = '맛있는 커피 완성';
     pourStep.textContent = `${formatTime(state.timer.elapsed)} 소요`;
+    pourCumulative.textContent = `누적 ${recipe.totalWater}g · ${formatTime(state.timer.elapsed)}`;
   } else if (stepIdx >= 0) {
     const step = steps[stepIdx];
     pourLabel.textContent = '💧 부으세요';
     pourAmount.textContent = `${step.pour}g`;
     pourStep.textContent = step.label;
+    pourCumulative.textContent = `누적 ${totalPoured}g · ${formatTime(state.timer.elapsed)}`;
+  } else {
+    pourCumulative.textContent = '';
   }
 
   // Water progress
-  const totalPoured = stepIdx >= 0
-    ? steps.slice(0, stepIdx + 1).reduce((sum, s) => sum + s.pour, 0)
-    : 0;
-  const displayPoured = state.timer.completed ? recipe.totalWater : totalPoured;
   const percent = Math.round((displayPoured / recipe.totalWater) * 100);
   document.getElementById('water-current').textContent = `${displayPoured}g`;
   document.getElementById('water-percent').textContent = `${percent}%`;

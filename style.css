@@ -285,17 +285,34 @@ body {
 .t-step.completed .t-pour { color: var(--success); }
 
 /* ===== Timer Controls ===== */
-.timer-controls { display: flex; gap: 10px; }
-.timer-controls button {
+.timer-top-controls {
+  display: flex; gap: 10px; margin-bottom: 16px;
+  position: sticky; top: 0; z-index: 10;
+  background: var(--bg); padding: 8px 0;
+}
+.timer-top-controls button {
   flex: 1; padding: 14px; border: none; border-radius: var(--radius);
   font-size: 1rem; font-weight: 700; font-family: inherit; cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.15s;
 }
-.btn-start { background: var(--accent); color: var(--bg); }
-.btn-start:hover { box-shadow: 0 4px 16px var(--accent-glow); }
-.btn-start.paused { background: var(--primary); }
+.btn-start {
+  background: var(--accent); color: var(--bg);
+  box-shadow: 0 2px 8px var(--accent-glow);
+  transform: translateY(0);
+}
+.btn-start:hover { box-shadow: 0 4px 20px var(--accent-glow); transform: translateY(-1px); }
+.btn-start:active { transform: translateY(1px); box-shadow: 0 1px 4px var(--accent-glow); }
+.btn-start.paused {
+  background: var(--primary); color: var(--bg);
+  animation: pulseBtn 1.5s ease infinite;
+}
+@keyframes pulseBtn {
+  0%, 100% { box-shadow: 0 0 0 0 var(--accent-glow); }
+  50% { box-shadow: 0 0 12px 4px var(--accent-glow); }
+}
 .btn-reset { background: var(--surface-elevated); color: var(--text-secondary); border: 1px solid var(--border); }
 .btn-reset:hover { background: var(--surface-hover); }
+.btn-reset:active { transform: translateY(1px); }
 
 /* ===== Add Form ===== */
 .add-form { display: flex; flex-direction: column; gap: 14px; padding-bottom: 24px; }

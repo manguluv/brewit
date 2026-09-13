@@ -342,6 +342,10 @@ function startBrewing() {
 function renderTimer(recipe) {
   const container = document.getElementById('timer-content');
   container.innerHTML = `
+    <div class="timer-top-controls">
+      <button class="btn-start" id="btn-start" onclick="toggleTimer()">시작</button>
+      <button class="btn-reset" id="btn-reset" onclick="resetTimer()">초기화</button>
+    </div>
     <h2 class="timer-recipe-name">${recipe.name}</h2>
     <div class="timer-time" id="timer-display">0:00</div>
     <div class="pour-card" id="pour-card">
@@ -358,10 +362,6 @@ function renderTimer(recipe) {
       <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
     </div>
     <div class="timer-steps" id="timer-steps"></div>
-    <div class="timer-controls">
-      <button class="btn-start" id="btn-start" onclick="toggleTimer()">시작</button>
-      <button class="btn-reset" id="btn-reset" onclick="resetTimer()">초기화</button>
-    </div>
   `;
   document.getElementById('timer-back-btn').onclick = () => {
     pauseTimer();

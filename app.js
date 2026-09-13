@@ -483,8 +483,10 @@ function updateTimerDisplay() {
   } else if (stepIdx >= 0) {
     const step = steps[stepIdx];
     const stepElapsed = state.timer.elapsed - step.time;
+    const nextStep = steps[stepIdx + 1];
+    const stepDuration = nextStep ? (nextStep.time - step.time) : (recipe.totalTime - step.time);
     pourLabel.textContent = '💧 부으세요';
-    pourAmount.innerHTML = `${step.pour}g <span class="pour-step-time">${formatTime(stepElapsed)}</span>`;
+    pourAmount.innerHTML = `${step.pour}g <span class="pour-step-time">${formatTime(stepElapsed)}/${formatTime(stepDuration)}</span>`;
     pourStep.textContent = step.label;
     pourCumulative.textContent = `누적 ${totalPoured}g`;
   } else {

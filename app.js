@@ -10,6 +10,7 @@ const defaultRecipes = [
     waterTemp: '90-93°C',
     grindSize: '중간 굵기',
     comandanteClicks: '24–28',
+    zp6Setting: '4.8–6.1',
     roastLevel: '미디엄',
     totalTime: 210,
     steps: [
@@ -30,6 +31,7 @@ const defaultRecipes = [
     waterTemp: '92-94°C',
     grindSize: '중간 굵기',
     comandanteClicks: '24–28',
+    zp6Setting: '4.8–6.1',
     roastLevel: '미디엄',
     totalTime: 180,
     steps: [
@@ -50,6 +52,7 @@ const defaultRecipes = [
     waterTemp: '94-96°C',
     grindSize: '중간 굵기',
     comandanteClicks: '22–26',
+    zp6Setting: '4.1–5.4',
     roastLevel: '미디엄 라이트',
     totalTime: 195,
     steps: [
@@ -71,6 +74,7 @@ const defaultRecipes = [
     waterTemp: '93-95°C',
     grindSize: '중간 굵기',
     comandanteClicks: '22–26',
+    zp6Setting: '4.1–5.4',
     roastLevel: '라이트',
     totalTime: 195,
     steps: [
@@ -91,6 +95,7 @@ const defaultRecipes = [
     waterTemp: '85-88°C',
     grindSize: '중간 굵기',
     comandanteClicks: '26–30',
+    zp6Setting: '5.4–6.8',
     roastLevel: '다크',
     totalTime: 180,
     steps: [
@@ -111,6 +116,7 @@ const defaultRecipes = [
     waterTemp: '96°C',
     grindSize: '매우 굵게',
     comandanteClicks: '40–45',
+    zp6Setting: '10.1–11.8',
     roastLevel: '라이트',
     totalTime: 180,
     steps: [
@@ -142,6 +148,7 @@ const defaultRecipes = [
     waterTemp: '90-93°C',
     grindSize: '중간 굵기',
     comandanteClicks: '24–28',
+    zp6Setting: '4.8–6.1',
     roastLevel: '미디엄',
     totalTime: 165,
     steps: [
@@ -280,7 +287,8 @@ function renderRecipeDetail(recipe) {
       <div class="info-item"><span class="label">비율</span><span class="value">1:${ratio}</span></div>
       <div class="info-item"><span class="label">수온</span><span class="value">${recipe.waterTemp}</span></div>
       <div class="info-item"><span class="label">분쇄도</span><span class="value">${recipe.grindSize}</span></div>
-      <div class="info-item"><span class="label">코만단테</span><span class="value">${recipe.comandanteClicks || '—'} 클릭</span></div>
+      <div class="info-item"><span class="label">C40 클릭</span><span class="value">${recipe.comandanteClicks || '—'}</span></div>
+      <div class="info-item"><span class="label">ZP6 설정</span><span class="value">${recipe.zp6Setting || '—'}</span></div>
       <div class="info-item"><span class="label">로스트</span><span class="value">${recipe.roastLevel}</span></div>
     </div>
     <div class="dose-control">
@@ -663,29 +671,30 @@ function handleAddRecipe() {
 
 // ===== Grind Guide =====
 const grindGuideData = [
-  { kr: '매우 곱게', en: 'Very Fine', clicks: '6–10', micron: '~400μm', color: '#d96650', use: '에스프레소, 모카포트' },
-  { kr: '곱게', en: 'Fine', clicks: '10–14', micron: '~600μm', color: '#e8b87d', use: '에스프레소, 터키커피' },
-  { kr: '중간 곱게', en: 'Medium-Fine', clicks: '14–18', micron: '~800μm', color: '#c8a882', use: '커피필터, 사이폰' },
-  { kr: '중간', en: 'Medium', clicks: '18–22', micron: '~1000μm', color: '#a08565', use: '드립커피 기본, 에어로프레스' },
-  { kr: '중간 굵기', en: 'Medium-Coarse', clicks: '22–28', micron: '~1200μm', color: '#8bbf6a', use: 'V60, 칼리타, 오리가미' },
-  { kr: '굵게', en: 'Coarse', clicks: '28–35', micron: '~1500μm', color: '#6a9fbb', use: '프렌치프레스, 콜드브루' },
-  { kr: '매우 굵게', en: 'Very Coarse', clicks: '35–45', micron: '~1800μm', color: '#7a8dbf', use: '콜드브루, 텐(10) 레시피' },
+  { kr: '매우 곱게', en: 'Very Fine', c40: '6–10', zp6: '0.2–0.5', micron: '~400μm', color: '#d96650', use: '에스프레소, 모카포트' },
+  { kr: '곱게', en: 'Fine', c40: '10–14', zp6: '0.5–1.5', micron: '~600μm', color: '#e8b87d', use: '에스프레소, 터키커피' },
+  { kr: '중간 곱게', en: 'Medium-Fine', c40: '14–18', zp6: '1.5–2.8', micron: '~800μm', color: '#c8a882', use: '커피필터, 사이폰' },
+  { kr: '중간', en: 'Medium', c40: '18–22', zp6: '2.8–4.1', micron: '~1000μm', color: '#a08565', use: '드립커피 기본, 에어로프레스' },
+  { kr: '중간 굵기', en: 'Medium-Coarse', c40: '22–28', zp6: '4.1–6.1', micron: '~1200μm', color: '#8bbf6a', use: 'V60, 칼리타, 오리가미' },
+  { kr: '굵게', en: 'Coarse', c40: '28–35', zp6: '6.1–8.5', micron: '~1500μm', color: '#6a9fbb', use: '프렌치프레스, 콜드브루' },
+  { kr: '매우 굵게', en: 'Very Coarse', c40: '35–45', zp6: '8.5–11.8', micron: '~1800μm', color: '#7a8dbf', use: '콜드브루, 텐(10) 레시피' },
 ];
 
 function renderGrindGuide() {
   const container = document.getElementById('grind-guide-content');
   container.innerHTML = `
     <div class="grind-guide-intro">
-      <strong>Comandante C40</strong> 그라인더의 클릭 수를 기준으로 합니다. 0클릭(완전히 닫힘)에서부터 시계 방향으로 돌린 수를 의미하며, 1클릭당 약 <strong>60μm</strong>입니다. 본 가이드는 <strong>표준 액슬(Standard Axle)</strong> 기준입니다.
+      <strong>Comandante C40</strong> (1클릭당 약 60μm)와 <strong>1Zpresso ZP6 Special</strong> (1회전 90클릭, 1클릭당 약 22μm) 두 그라인더의 설정을 함께 표시합니다. ZP6 설정값은 변환 공식 <strong>ZP6 ≈ C40클릭 ÷ 3 − 3.2</strong>를 기준으로 계산되었습니다.
     </div>
     <div class="grind-table">
       <div class="grind-row header">
-        <span>분쇄도</span><span>클릭 수</span><span>입자 크기</span>
+        <span>분쇄도</span><span>C40 클릭</span><span>ZP6 설정</span><span>입자 크기</span>
       </div>
       ${grindGuideData.map(g => `
         <div class="grind-row">
           <span class="g-label"><span class="g-kr">${g.kr}</span><span class="g-en">${g.en}</span></span>
-          <span class="g-clicks">${g.clicks}</span>
+          <span class="g-clicks">${g.c40}</span>
+          <span class="g-clicks">${g.zp6}</span>
           <span class="g-micron">${g.micron}</span>
         </div>
       `).join('')}
@@ -696,11 +705,30 @@ function renderGrindGuide() {
         ${grindGuideData.map(g => `
           <div class="grind-use-item">
             <span class="dot" style="background:${g.color}"></span>
-            <span><strong>${g.kr}</strong> (${g.clicks} 클릭) — ${g.use}</span>
+            <span><strong>${g.kr}</strong> (C40 ${g.c40} / ZP6 ${g.zp6}) — ${g.use}</span>
           </div>
         `).join('')}
       </div>
     </div>
+    <div class="grind-conversion-note">
+      <h3>변환 참고표 (C40 → ZP6)</h3>
+      <div class="conv-table" id="conv-table"></div>
+    </div>
+  `;
+  // Render conversion table
+  const convData = [
+    { c40: 15, zp6: 1.8 }, { c40: 16, zp6: 2.1 }, { c40: 17, zp6: 2.4 },
+    { c40: 18, zp6: 2.8 }, { c40: 19, zp6: 3.1 }, { c40: 20, zp6: 3.4 },
+    { c40: 21, zp6: 3.8 }, { c40: 22, zp6: 4.1 }, { c40: 23, zp6: 4.4 },
+    { c40: 24, zp6: 4.8 }, { c40: 25, zp6: 5.1 }, { c40: 26, zp6: 5.4 },
+    { c40: 27, zp6: 5.8 }, { c40: 28, zp6: 6.1 }, { c40: 29, zp6: 6.4 },
+    { c40: 30, zp6: 6.8 },
+  ];
+  document.getElementById('conv-table').innerHTML = `
+    <div class="conv-row header"><span>C40 클릭</span><span>ZP6 설정</span></div>
+    ${convData.map(c => `
+      <div class="conv-row"><span class="conv-c40">${c.c40}</span><span class="conv-zp6">${c.zp6}</span></div>
+    `).join('')}
   `;
 }
 

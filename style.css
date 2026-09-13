@@ -109,7 +109,7 @@ body {
 .grind-guide-intro strong { color: var(--accent); }
 .grind-table { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
 .grind-row {
-  display: grid; grid-template-columns: 1fr 70px 70px; gap: 8px; align-items: center;
+  display: grid; grid-template-columns: 1fr 60px 60px 60px; gap: 6px; align-items: center;
   padding: 12px 14px; background: var(--surface); border-radius: var(--radius-sm);
   border: 1px solid var(--border); font-size: 0.88rem; transition: all 0.2s;
 }
@@ -131,6 +131,22 @@ body {
   font-size: 0.85rem; color: var(--text-secondary);
 }
 .grind-use-item .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+/* ===== Conversion Table ===== */
+.grind-conversion-note {
+  margin-top: 20px; padding: 14px 16px;
+  background: var(--surface); border-radius: var(--radius-sm); border: 1px solid var(--border);
+}
+.grind-conversion-note h3 { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 10px; }
+.conv-table { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+.conv-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4px; align-items: center;
+  padding: 8px 10px; background: var(--surface-elevated); border-radius: 6px;
+  font-size: 0.8rem; border: 1px solid var(--border);
+}
+.conv-row.header { background: transparent; border: none; color: var(--text-dim); font-size: 0.7rem; font-weight: 500; padding: 4px 10px; }
+.conv-c40 { font-family: 'JetBrains Mono', monospace; color: var(--primary); font-weight: 700; text-align: center; }
+.conv-zp6 { font-family: 'JetBrains Mono', monospace; color: var(--accent); font-weight: 700; text-align: center; }
 
 /* ===== FAB ===== */
 .fab {
@@ -326,7 +342,7 @@ body {
 /* ===== Responsive ===== */
 @media (min-width: 768px) {
   .recipe-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-  .info-grid { grid-template-columns: repeat(6, 1fr); }
+  .info-grid { grid-template-columns: repeat(4, 1fr); }
 }
 @media (min-width: 1024px) {
   .recipe-list { grid-template-columns: repeat(3, 1fr); }

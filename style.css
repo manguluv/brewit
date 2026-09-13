@@ -204,6 +204,11 @@ body {
 .step-row .cumulative { font-family: 'JetBrains Mono', monospace; color: var(--text-dim); text-align: right; }
 
 /* ===== BrewIt Button ===== */
+.tips-section { margin-bottom: 24px; }
+.tips-section h3 { font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 10px; }
+.tips-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.tips-list li { font-size: 0.85rem; line-height: 1.5; color: var(--text-secondary); padding: 10px 14px; background: var(--card-bg); border-radius: 10px; border: 1px solid var(--border); }
+
 .brewit-btn {
   display: block; width: 100%; padding: 16px;
   background: linear-gradient(135deg, var(--accent), var(--primary));

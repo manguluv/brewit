@@ -1,163 +1,319 @@
 // ===== Recipe Data =====
 const defaultRecipes = [
   {
-    id: '4-6-method',
-    name: '4:6 메서드',
-    author: 'Tetsu Kasuya (2016 WBrC 챔피언)',
-    description: '전체 물량을 4:6 비율로 나누어 추출. 전반부 40%에서 맛의 균형을, 후반부 60%에서 추출 강도를 조절합니다.',
-    coffeeDose: 20,
-    totalWater: 300,
-    waterTemp: '90-93°C',
-    grindSize: '중간 굵기',
-    comandanteClicks: '24–28',
-    zp6Setting: '4.8–6.1',
-    roastLevel: '미디엄',
-    totalTime: 210,
-    steps: [
-      { time: 0,   pour: 50, label: '블루밍' },
-      { time: 45,  pour: 70, label: '1차 투입' },
-      { time: 90,  pour: 60, label: '2차 투입' },
-      { time: 130, pour: 60, label: '3차 투입' },
-      { time: 170, pour: 60, label: '4차 투입' },
-    ]
-  },
-  {
-    id: 'classic-v60',
-    name: '클래식 V60',
-    author: 'BrewIt! 기본 레시피',
-    description: '가장 보편적인 V60 드립 레시피. 균등한 분할 투입으로 안정적인 추출을 목표로 합니다.',
-    coffeeDose: 20,
-    totalWater: 320,
-    waterTemp: '92-94°C',
-    grindSize: '중간 굵기',
-    comandanteClicks: '24–28',
-    zp6Setting: '4.8–6.1',
-    roastLevel: '미디엄',
-    totalTime: 180,
-    steps: [
-      { time: 0,   pour: 40, label: '블루밍 (2배)' },
-      { time: 45,  pour: 80, label: '1차 투입' },
-      { time: 75,  pour: 80, label: '2차 투입' },
-      { time: 105, pour: 60, label: '3차 투입' },
-      { time: 135, pour: 60, label: '4차 투입' },
-    ]
-  },
-  {
-    id: 'hoffman-v60',
-    name: '호프만 V60',
-    author: 'James Hoffman',
-    description: '균등한 분할 투입으로 일관된 추출을 유도. 매 30초마다 동일한 양을 투입하여 고르게 추출합니다.',
-    coffeeDose: 20,
-    totalWater: 300,
-    waterTemp: '94-96°C',
-    grindSize: '중간 굵기',
-    comandanteClicks: '22–26',
-    zp6Setting: '4.1–5.4',
-    roastLevel: '미디엄 라이트',
-    totalTime: 195,
-    steps: [
-      { time: 0,   pour: 50, label: '블루밍 (2.5배)' },
-      { time: 45,  pour: 50, label: '1차 투입' },
-      { time: 75,  pour: 50, label: '2차 투입' },
-      { time: 105, pour: 50, label: '3차 투입' },
-      { time: 135, pour: 50, label: '4차 투입' },
-      { time: 165, pour: 50, label: '5차 투입' },
-    ]
-  },
-  {
-    id: 'origami-light',
-    name: '오리카미 라이트 로스트',
-    author: 'BrewIt! 추천',
-    description: '라이트 로스트를 위한 레시피. 높은 수온과 점진적 투입으로 산미와 단맛을 극대화합니다.',
-    coffeeDose: 20,
-    totalWater: 300,
-    waterTemp: '93-95°C',
-    grindSize: '중간 굵기',
-    comandanteClicks: '22–26',
-    zp6Setting: '4.1–5.4',
-    roastLevel: '라이트',
-    totalTime: 195,
-    steps: [
-      { time: 0,   pour: 45, label: '블루밍' },
-      { time: 45,  pour: 55, label: '1차 투입' },
-      { time: 90,  pour: 75, label: '2차 투입' },
-      { time: 120, pour: 75, label: '3차 투입' },
-      { time: 150, pour: 50, label: '4차 투입' },
-    ]
-  },
-  {
-    id: 'dark-roast',
-    name: '다크 로스트 (저온)',
-    author: 'BrewIt! 추천',
-    description: '다크 로스트의 쓴맛을 줄이고 단맛을 끌어내는 저온 추출 레시피. 낮은 수온으로 탄맛을 억제합니다.',
-    coffeeDose: 20,
-    totalWater: 280,
-    waterTemp: '85-88°C',
-    grindSize: '중간 굵기',
-    comandanteClicks: '26–30',
-    zp6Setting: '5.4–6.8',
-    roastLevel: '다크',
-    totalTime: 180,
-    steps: [
-      { time: 0,   pour: 40, label: '블루밍' },
-      { time: 45,  pour: 60, label: '1차 투입' },
-      { time: 75,  pour: 60, label: '2차 투입' },
-      { time: 105, pour: 60, label: '3차 투입' },
-      { time: 135, pour: 60, label: '4차 투입' },
-    ]
-  },
-  {
-    id: 'ten-recipe',
-    name: '텐(10) 레시피',
-    author: 'Tetsu Kasuya (2016 WBrC 챔피언)',
-    description: '분쇄도를 매우 굵게 세팅하고 물을 10번에 30g씩 나누어 부어 원두가 가진 극강의 단맛과 향미를 뽑아내는 방식. 식어가면서 단맛이 더 올라오므로 천천히 온도 변화를 느끼며 마시는 것이 좋습니다.',
-    coffeeDose: 20,
-    totalWater: 300,
-    waterTemp: '96°C',
-    grindSize: '매우 굵게',
-    comandanteClicks: '40–45',
-    zp6Setting: '10.1–11.8',
-    roastLevel: '라이트',
-    totalTime: 180,
-    steps: [
-      { time: 0,   pour: 30, label: '뜸 들이기' },
-      { time: 30,  pour: 30, label: '2차 투입' },
-      { time: 45,  pour: 30, label: '3차 투입' },
-      { time: 60,  pour: 30, label: '4차 투입' },
-      { time: 75,  pour: 30, label: '5차 투입' },
-      { time: 90,  pour: 30, label: '6차 투입' },
-      { time: 105, pour: 30, label: '7차 투입' },
-      { time: 120, pour: 30, label: '8차 투입' },
-      { time: 135, pour: 30, label: '9차 투입' },
-      { time: 150, pour: 30, label: '10차 투입' },
+    "id": "4-6-method",
+    "name": "4:6 메서드",
+    "author": "Tetsu Kasuya (2016 WBrC 챔피언)",
+    "description": "전체 물량의 앞 40%로 산미와 단맛의 균형을, 뒤 60%의 분할 횟수로 농도와 질감을 조절하는 방식입니다. 이 구성은 앞 40%를 50g+70g으로 나눈 단맛 중심 변형입니다.",
+    "coffeeDose": 20,
+    "totalWater": 300,
+    "waterTemp": "92°C",
+    "grindSize": "굵게",
+    "comandanteClicks": "28–32",
+    "zp6Setting": "5.5–6.5",
+    "roastLevel": "라이트–미디엄",
+    "totalTime": 210,
+    "steps": [
+      {
+        "time": 0,
+        "pour": 50,
+        "label": "1차 투입 (누적 50g)"
+      },
+      {
+        "time": 45,
+        "pour": 70,
+        "label": "2차 투입 (누적 120g)"
+      },
+      {
+        "time": 90,
+        "pour": 60,
+        "label": "3차 투입 (누적 180g)"
+      },
+      {
+        "time": 135,
+        "pour": 60,
+        "label": "4차 투입 (누적 240g)"
+      },
+      {
+        "time": 180,
+        "pour": 60,
+        "label": "5차 투입 (누적 300g)"
+      }
     ],
-    tips: [
-      '낙차를 크게 주지 말고 가까이에서 젠틀하게 부어 물이 드리퍼 안에 고이지 않고 바로 흘러가게 합니다.',
-      '차수가 늘어날수록 물 빠짐이 느려지지만, 시간에 맞춰 계속 부어주시면 됩니다.',
-      '처음이라면 분쇄도 40클릭부터 시작해 보세요. 42클릭을 가장 선호하는 의견이 많습니다.',
-      '식어가면서 단맛이 더 기분 좋게 올라오므로, 천천히 온도 변화를 느끼며 드세요.',
-    ],
-  },
-  {
-    id: 'simple-3pour',
-    name: '간편 3단계 (초보자용)',
-    author: 'BrewIt! 기본',
-    description: '3번의 투입만으로 완성되는 초보자 친화적 레시피. 블루밍 후 2회 분할 투입으로 간단하게 추출합니다.',
-    coffeeDose: 20,
-    totalWater: 300,
-    waterTemp: '90-93°C',
-    grindSize: '중간 굵기',
-    comandanteClicks: '24–28',
-    zp6Setting: '4.8–6.1',
-    roastLevel: '미디엄',
-    totalTime: 165,
-    steps: [
-      { time: 0,   pour: 50,  label: '블루밍' },
-      { time: 45,  pour: 125, label: '메인 투입' },
-      { time: 105, pour: 125, label: '마무리 투입' },
+    "tips": [
+      "각 투입은 약 5초 안에 마치고 다음 투입 전까지 물이 대부분 빠지게 합니다.",
+      "더 밝은 산미는 첫 두 투입을 70g+50g으로, 더 강한 농도는 뒤 180g을 더 많은 횟수로 나눠 조절합니다.",
+      "분쇄도 표기는 시작점입니다. 3분 30초보다 지나치게 빠르면 더 곱게, 느리면 더 굵게 조절하세요."
     ]
   },
-];
+  {
+    "id": "classic-v60",
+    "name": "클래식 V60",
+    "author": "BrewIt! 표준안 (비공식)",
+    "description": "V60용 범용 1:16 레시피입니다. 블루밍 뒤 네 번의 분할 투입으로 재현성을 높였습니다.",
+    "coffeeDose": 20,
+    "totalWater": 320,
+    "waterTemp": "92–95°C",
+    "grindSize": "중간–약간 곱게",
+    "comandanteClicks": "24–28",
+    "zp6Setting": "4.5–5.5",
+    "roastLevel": "라이트–미디엄",
+    "totalTime": 180,
+    "steps": [
+      {
+        "time": 0,
+        "pour": 40,
+        "label": "블루밍 (누적 40g)"
+      },
+      {
+        "time": 45,
+        "pour": 80,
+        "label": "1차 투입 (누적 120g)"
+      },
+      {
+        "time": 75,
+        "pour": 80,
+        "label": "2차 투입 (누적 200g)"
+      },
+      {
+        "time": 105,
+        "pour": 60,
+        "label": "3차 투입 (누적 260g)"
+      },
+      {
+        "time": 135,
+        "pour": 60,
+        "label": "4차 투입 (누적 320g)"
+      }
+    ],
+    "tips": [
+      "블루밍 직후 드리퍼를 가볍게 흔들어 마른 가루가 남지 않게 합니다.",
+      "목표 종료 시간은 2분 45초–3분 15초입니다. 맛과 배출 시간에 맞춰 분쇄도를 조절하세요."
+    ]
+  },
+  {
+    "id": "hoffmann-v60",
+    "name": "제임스 호프만 얼티밋 V60 (300g 환산)",
+    "author": "James Hoffmann",
+    "description": "공식 30g:500g 얼티밋 V60 기법을 같은 1:16.7 비율로 18g:300g에 환산한 레시피입니다. 블루밍 후 60%까지 빠르게, 나머지는 더 천천히 붓습니다.",
+    "coffeeDose": 18,
+    "totalWater": 300,
+    "waterTemp": "95–100°C (다크 로스트는 낮게)",
+    "grindSize": "중간–약간 곱게",
+    "comandanteClicks": "22–26",
+    "zp6Setting": "4.0–5.0",
+    "roastLevel": "라이트–미디엄",
+    "totalTime": 210,
+    "steps": [
+      {
+        "time": 0,
+        "pour": 36,
+        "label": "블루밍 후 스월 (누적 36g)"
+      },
+      {
+        "time": 45,
+        "pour": 144,
+        "label": "1:15까지 투입 (누적 180g)"
+      },
+      {
+        "time": 75,
+        "pour": 120,
+        "label": "1:45까지 투입 (누적 300g)"
+      }
+    ],
+    "tips": [
+      "마지막 투입 뒤 한 번 젓고 드리퍼를 가볍게 스월해 커피층을 평평하게 만듭니다.",
+      "목표 종료 시간은 약 3분 30초이며, 시간 자체보다 고른 추출과 맛을 우선해 분쇄도를 조절하세요."
+    ]
+  },
+  {
+    "id": "origami-light",
+    "name": "오리가미 라이트 로스트",
+    "author": "BrewIt! 추천 (비공식)",
+    "description": "ORIGAMI 드리퍼와 원추형 필터를 기준으로 한 라이트 로스트용 레시피입니다. 높은 수온과 점진적 분할 투입으로 향미와 단맛을 끌어냅니다. 웨이브 필터를 쓰면 유속이 달라져 재조정이 필요합니다.",
+    "coffeeDose": 20,
+    "totalWater": 300,
+    "waterTemp": "94–96°C",
+    "grindSize": "중간–약간 곱게",
+    "comandanteClicks": "22–26",
+    "zp6Setting": "4.0–5.0",
+    "roastLevel": "라이트",
+    "totalTime": 195,
+    "steps": [
+      {
+        "time": 0,
+        "pour": 45,
+        "label": "블루밍 (누적 45g)"
+      },
+      {
+        "time": 45,
+        "pour": 55,
+        "label": "1차 투입 (누적 100g)"
+      },
+      {
+        "time": 90,
+        "pour": 75,
+        "label": "2차 투입 (누적 175g)"
+      },
+      {
+        "time": 120,
+        "pour": 75,
+        "label": "3차 투입 (누적 250g)"
+      },
+      {
+        "time": 150,
+        "pour": 50,
+        "label": "4차 투입 (누적 300g)"
+      }
+    ],
+    "tips": [
+      "배출이 빠른 드리퍼이므로 중심부에 낮고 일정한 물줄기로 붓습니다.",
+      "웨이브 필터 사용 시에는 이 값보다 조금 굵게 시작하거나 투입 간격을 줄여 맛을 맞추세요."
+    ]
+  },
+  {
+    "id": "dark-roast",
+    "name": "다크 로스트 (저온·저교반)",
+    "author": "BrewIt! 추천 (비공식)",
+    "description": "다크 로스트의 과다 추출과 거친 쓴맛을 줄이기 위해 수온과 교반을 낮춘 1:14 레시피입니다. 잦은 분할 투입 대신 블루밍 후 두 번만 부어 추출 자극을 줄입니다.",
+    "coffeeDose": 20,
+    "totalWater": 280,
+    "waterTemp": "85–90°C",
+    "grindSize": "중간–약간 굵게",
+    "comandanteClicks": "26–30",
+    "zp6Setting": "5.0–6.0",
+    "roastLevel": "다크",
+    "totalTime": 150,
+    "steps": [
+      {
+        "time": 0,
+        "pour": 40,
+        "label": "블루밍 (누적 40g)"
+      },
+      {
+        "time": 45,
+        "pour": 120,
+        "label": "메인 투입 (누적 160g)"
+      },
+      {
+        "time": 105,
+        "pour": 120,
+        "label": "마무리 투입 (누적 280g)"
+      }
+    ],
+    "tips": [
+      "로스팅이 매우 강하거나 쓴맛이 두드러지면 85°C부터, 비교적 약한 다크 로스트는 88–90°C부터 시작하세요.",
+      "신맛과 밋밋함이 느껴지면 먼저 수온을 2°C 높이고, 그래도 부족할 때만 조금 더 곱게 조절하세요."
+    ]
+  },
+  {
+    "id": "ten-recipe",
+    "name": "텐(10) 푸어 레시피",
+    "author": "Tetsu Kasuya",
+    "description": "매우 굵은 분쇄와 높은 수온을 사용하고 30g씩 열 번 붓는 멀티 푸어 방식입니다. 첫 투입 뒤 30초, 이후에는 15초 간격으로 부어 선명한 향과 단맛을 노립니다.",
+    "coffeeDose": 20,
+    "totalWater": 300,
+    "waterTemp": "96°C",
+    "grindSize": "매우 굵게",
+    "comandanteClicks": "40–45",
+    "zp6Setting": "7.0–8.0",
+    "roastLevel": "라이트",
+    "totalTime": 210,
+    "steps": [
+      {
+        "time": 0,
+        "pour": 30,
+        "label": "1차 투입 (누적 30g)"
+      },
+      {
+        "time": 30,
+        "pour": 30,
+        "label": "2차 투입 (누적 60g)"
+      },
+      {
+        "time": 45,
+        "pour": 30,
+        "label": "3차 투입 (누적 90g)"
+      },
+      {
+        "time": 60,
+        "pour": 30,
+        "label": "4차 투입 (누적 120g)"
+      },
+      {
+        "time": 75,
+        "pour": 30,
+        "label": "5차 투입 (누적 150g)"
+      },
+      {
+        "time": 90,
+        "pour": 30,
+        "label": "6차 투입 (누적 180g)"
+      },
+      {
+        "time": 105,
+        "pour": 30,
+        "label": "7차 투입 (누적 210g)"
+      },
+      {
+        "time": 120,
+        "pour": 30,
+        "label": "8차 투입 (누적 240g)"
+      },
+      {
+        "time": 135,
+        "pour": 30,
+        "label": "9차 투입 (누적 270g)"
+      },
+      {
+        "time": 150,
+        "pour": 30,
+        "label": "10차 투입 (누적 300g)"
+      }
+    ],
+    "tips": [
+      "낙차를 크게 주지 말고 가까이에서 부드럽게 부어 과도한 교반을 피합니다.",
+      "첫 투입 뒤 30초를 기다리고, 이후에는 15초마다 다음 30g을 붓습니다.",
+      "ZP6는 영점 기준 표준 다이얼 표기입니다. 기존 10.1–11.8 표기는 일반적인 ZP6 Special 다이얼 범위를 벗어나므로 수정했습니다.",
+      "목표 종료 시간은 약 3분–3분 30초입니다. 지나치게 빨리 끝나고 맛이 약하면 조금 더 곱게 조절하세요."
+    ]
+  },
+  {
+    "id": "simple-3pour",
+    "name": "간편 3단계 (초보자용)",
+    "author": "BrewIt! 표준안 (비공식)",
+    "description": "블루밍 뒤 두 번만 나누어 붓는 간단한 1:15 레시피입니다. 조작이 적어 물줄기와 분쇄도 조절에 익숙하지 않아도 재현하기 쉽습니다.",
+    "coffeeDose": 20,
+    "totalWater": 300,
+    "waterTemp": "92–94°C",
+    "grindSize": "중간",
+    "comandanteClicks": "24–28",
+    "zp6Setting": "4.5–5.5",
+    "roastLevel": "라이트–미디엄",
+    "totalTime": 165,
+    "steps": [
+      {
+        "time": 0,
+        "pour": 50,
+        "label": "블루밍 (누적 50g)"
+      },
+      {
+        "time": 45,
+        "pour": 125,
+        "label": "메인 투입 (누적 175g)"
+      },
+      {
+        "time": 105,
+        "pour": 125,
+        "label": "마무리 투입 (누적 300g)"
+      }
+    ],
+    "tips": [
+      "각 투입은 원두층이 완전히 드러나기 전에 이어가되 물이 너무 높게 차오르지 않게 합니다.",
+      "목표 종료 시간은 2분 30초–3분입니다."
+    ]
+  }
+]
 
 // ===== State =====
 const state = {
@@ -302,6 +458,13 @@ function renderRecipeDetail(recipe) {
       <h3>추출 단계</h3>
       <div class="steps-table" id="steps-table"></div>
     </div>
+    ${recipe.tips && recipe.tips.length ? `
+    <div class="tips-section">
+      <h3>💡 팁</h3>
+      <ul class="tips-list">
+        ${recipe.tips.map(t => `<li>${t}</li>`).join('')}
+      </ul>
+    </div>` : ''}
     <button class="brewit-btn" onclick="startBrewing()">BrewIt! ☕</button>
   `;
   document.getElementById('dose-input').addEventListener('input', (e) => {
